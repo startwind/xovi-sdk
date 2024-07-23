@@ -1,6 +1,6 @@
 <?php
 
-namespace Xovi\Sdk\Services\User\Result;
+namespace Xovi\Sdk\Services\Keywords\Result;
 
 class SearchEngineResult
 {

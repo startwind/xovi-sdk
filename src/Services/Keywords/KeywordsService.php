@@ -2,9 +2,9 @@
 
 namespace Xovi\Sdk\Services\Keywords;
 
+use Xovi\Sdk\Services\Keywords\Result\RankDomainResult;
+use Xovi\Sdk\Services\Keywords\Result\SearchEngineResult;
 use Xovi\Sdk\Services\Service;
-use Xovi\Sdk\Services\User\Result\SearchEngineResult;
-use Xovi\Sdk\Services\User\Result\XoviLimitsResult;
 
 class KeywordsService extends Service
 {
@@ -13,8 +13,12 @@ class KeywordsService extends Service
     protected const METHOD_GET_RANK = 'getRank';
     protected const METHOD_GET_SEARCH_ENGINES = 'getSearchEngines';
 
-
-    public function getRank(string $searchEngine, int $limit = 500, int $skip = 0): XoviLimitsResult
+    /**
+     * Returns the strongest domains within a search engine sorted by OVI.
+     *
+     * @return RankDomainResult[]
+     */
+    public function getRank(string $searchEngine, int $limit = 500, int $skip = 0): array
     {
         $parameters = [
             'sengine' => $searchEngine,
@@ -25,7 +29,13 @@ class KeywordsService extends Service
 
         $result = $this->call(self::METHOD_GET_RANK, $parameters);
 
-        return XoviLimitsResult::fromArray($result);
+        $domains = [];
+
+        foreach ($result as $domain) {
+            $domains[] = RankDomainResult::fromArray($domain);
+        }
+
+        return $domains;
     }
 
     /**

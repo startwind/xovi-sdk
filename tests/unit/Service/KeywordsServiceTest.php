@@ -4,8 +4,8 @@ namespace Service;
 
 use AbstractTestCase;
 use Xovi\Sdk\Services\Keywords\KeywordsService;
-use Xovi\Sdk\Services\User\Result\SearchEngineResult;
-use Xovi\Sdk\Services\User\UserService;
+use Xovi\Sdk\Services\Keywords\Result\RankDomainResult;
+use Xovi\Sdk\Services\Keywords\Result\SearchEngineResult;
 
 include_once __DIR__ . '/../AbstractTestCase.php';
 
@@ -25,8 +25,11 @@ class KeywordsServiceTest extends AbstractTestCase
     public function testGetRank(): void
     {
         $service = $this->getKeywordsService();
-        $service->getRank('google.de');
-        $this->assertInstanceOf(UserService::class, $service);
+        $domains = $service->getRank('google.de');
+
+        $this->assertEquals(500, count($domains));
+
+        $this->assertInstanceOf(RankDomainResult::class, $domains[0]);
     }
 
     public function testGetSearchEngines(): void
