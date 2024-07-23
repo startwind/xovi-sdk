@@ -4,5 +4,10 @@
 
 ```php
 $client = new \Xovi\Sdk\Client('myPersonalKey');
-$keywords = $client->getKeywordsService()->getRank('google.de');
+$domains = $client->getKeywordsService()->getRank('google.de');
+
+foreach($domains as $domain) {
+    echo $domain->getDomain() . "\n";
+}
 ```
+    
