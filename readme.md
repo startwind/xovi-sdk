@@ -1,5 +1,11 @@
 # XOVI SDK
 
+## Install
+
+```shell
+composer require xovi/sdk
+```
+
 ## Example
 
 ```php
