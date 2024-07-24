@@ -1,7 +1,7 @@
 # XOVI SDK
 
 > [!NOTE]  
-> This package is work in progress. Not all methods are implemented yet. Please do not use it in you production code yet. 
+> This package is work in progress. Not all methods are implemented yet. Please only use it in you production code if you are a real badass. 
 
 ## Install
 
