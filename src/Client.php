@@ -4,8 +4,10 @@ namespace Xovi\Sdk;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\RequestOptions;
 use Xovi\Sdk\Exception\ApiException;
 use Xovi\Sdk\Exception\InvalidApiKeyException;
+use Xovi\Sdk\Exception\ParameterMissingException;
 use Xovi\Sdk\Services\AddressBook\AddressBookService;
 use Xovi\Sdk\Services\Keywords\KeywordsService;
 use Xovi\Sdk\Services\Links\LinksService;
@@ -34,7 +36,19 @@ class Client
         }
     }
 
-    public function call(string $service, string $method, array $params)
+    private function createGetUri(array $arrayParams, array $params = []): Uri
+    {
+        if (array_key_exists('format', $params)) {
+            $params['format'] = $arrayParams['format'];
+            unset($arrayParams['format']);
+        }
+
+        $arrayParams = array_merge($arrayParams, $params);
+        $getParams = implode('/', $arrayParams);
+        return new Uri(self::API_ROOT . $getParams);
+    }
+
+    public function call(string $service, string $method, array $params = [], string $httpMethod = 'GET')
     {
         $arrayParams = array(
             'service' => $service,
@@ -43,18 +57,15 @@ class Client
             'format' => 'json',
         );
 
-        if (array_key_exists('format', $params)) {
-            $params['format'] = $arrayParams['format'];
-            unset($arrayParams['format']);
+        if ($httpMethod === 'GET') {
+            $uri = $this->createGetUri($arrayParams, $params);
+            $response = $this->client->get($uri);
+        } else if ($httpMethod === 'POST') {
+            $uri = $this->createGetUri($arrayParams);
+            $response = $this->client->post($uri, [RequestOptions::FORM_PARAMS => $params]);
+        } else {
+            throw new \RuntimeException('Unknown HTTP method: ' . $httpMethod);
         }
-
-        $arrayParams = array_merge($arrayParams, $params);
-
-        $getParams = implode('/', $arrayParams);
-
-        $requestUri = new Uri(self::API_ROOT . $getParams);
-
-        $response = $this->client->get($requestUri);
 
         $result = json_decode((string)$response->getBody(), true);
 
@@ -65,7 +76,12 @@ class Client
         if ($result['apiErrorCode'] !== 0) {
             if ($result['apiErrorCode'] === 2) {
                 throw new InvalidApiKeyException();
+            } else if ($result['apiErrorMessage'] === "result empty") {
+                return [];
+            } else if ($result['apiErrorMessage'] === "param missing") {
+                throw new ParameterMissingException($result['paramname']);
             } else {
+                var_dump($result);
                 throw new ApiException($result['apiErrorMessage']);
             }
         }

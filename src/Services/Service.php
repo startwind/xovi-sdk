@@ -2,6 +2,7 @@
 
 namespace Xovi\Sdk\Services;
 
+use GuzzleHttp\Psr7\Request;
 use Xovi\Sdk\Client;
 
 abstract class Service
@@ -18,5 +19,10 @@ abstract class Service
     protected function call(string $method, array $params = [])
     {
         return $this->client->call(static::SERVICE, $method, $params);
+    }
+
+    protected function callPost(string $method, array $params = [])
+    {
+        return $this->client->call(static::SERVICE, $method, $params, 'POST');
     }
 }
