@@ -6,7 +6,13 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Uri;
 use Xovi\Sdk\Exception\ApiException;
 use Xovi\Sdk\Exception\InvalidApiKeyException;
+use Xovi\Sdk\Services\AddressBook\AddressBookService;
 use Xovi\Sdk\Services\Keywords\KeywordsService;
+use Xovi\Sdk\Services\Links\LinksService;
+use Xovi\Sdk\Services\Monitoring\MonitoringService;
+use Xovi\Sdk\Services\Project\ProjectService;
+use Xovi\Sdk\Services\Report\ReportService;
+use Xovi\Sdk\Services\Sea\SeaService;
 use Xovi\Sdk\Services\User\UserService;
 
 class Client
@@ -75,5 +81,35 @@ class Client
     public function getKeywordsService(): KeywordsService
     {
         return new KeywordsService($this);
+    }
+
+    public function getAddressBookService(): AddressBookService
+    {
+        return new AddressBookService($this);
+    }
+
+    public function getLinksService(): LinksService
+    {
+        return new LinksService($this);
+    }
+
+    public function getMonitoringService(): MonitoringService
+    {
+        return new MonitoringService($this);
+    }
+
+    public function getProjectService(): ProjectService
+    {
+        return new ProjectService($this);
+    }
+
+    public function getReportService(): ReportService
+    {
+        return new ReportService($this);
+    }
+
+    public function getSeaService(): SeaService
+    {
+        return new SeaService($this);
     }
 }

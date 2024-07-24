@@ -16,4 +16,3 @@ foreach($domains as $domain) {
     echo $domain->getDomain() . "\n";
 }
 ```
-    
