@@ -39,6 +39,8 @@ class KeywordsService extends Service
     }
 
     /**
+     * Returns all daily crawled or weekly crawled search engines. (Contains data relevant for other functions).
+     *
      * @return SearchEngineResult[]
      */
     public function getSearchEngines(): array

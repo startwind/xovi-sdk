@@ -32,7 +32,7 @@ foreach($domains as $domain) {
 ### Keywords
 
 - `getRank` - Returns the strongest domains within a search engine sorted by OVI.
-- `getSearchEngines`
+- `getSearchEngines` - Returns all daily crawled or weekly crawled search engines. (Contains data relevant for other functions).
 
 ### User
 
