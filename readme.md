@@ -31,13 +31,13 @@ foreach($domains as $domain) {
 
 ### Keywords
 
-- `getRank` - Returns the strongest domains within a search engine sorted by OVI.
-- `getSearchEngines` - Returns all daily crawled or weekly crawled search engines. (Contains data relevant for other functions).
+- `getRank` - *Returns the strongest domains within a search engine sorted by OVI.*
+- `getSearchEngines` - *Returns all daily crawled or weekly crawled search engines. (Contains data relevant for other functions).*
 
 ### User
 
-- `getXoviLimits` - Returns all usage limits of the tool.
-- `getCreditState` - Returns the current status of your credit data.
+- `getXoviLimits` - *Returns all usage limits of the tool.*
+- `getCreditState` - *Returns the current status of your credit data.*
 
 ## How to run tests
 
