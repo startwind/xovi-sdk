@@ -16,3 +16,21 @@ foreach($domains as $domain) {
     echo $domain->getDomain() . "\n";
 }
 ```
+
+## Implemented Services and Methods
+
+### Address Book
+
+- `addPerson`
+- `getPersons`
+- `getOrganisations`
+
+### Keywords
+
+- `getRank`
+- `getSearchEngines`
+
+### User
+
+- `getXoviLimits`
+- `getCreditState`
